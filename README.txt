@@ -1,0 +1,1 @@
+Move4Math é uma suíte de jogos sérios, produzido pelo grupo LARVA da UDESC de Joinville, com o objetivo de ajudar no estímulo motor, cognitivo e na inicialização da alfabetização da matemática.

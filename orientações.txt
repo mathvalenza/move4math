@@ -1,0 +1,29 @@
+Publicos:
+Crianca; Crianca Down
+
+ARQUIVOS:
+
+Fases:
+Fase: Numero da Fase do respectivo Jogo
+CIT: Conjunto de Imagens de Trabalho daquela fase do Jogo
+GAO: Geracao Aleatoria de Objetivos; 1 - Sim (Cont/M&M), 2 - Não (Cla/Ord)
+EST: Tipo de Estimulo Gerado; 0 - Som, 1 - Imagem, 2 - Som e Imagem (sempre 1)
+
+Niveis:
+Nivel: Numero do nivel do jogo
+TAI: Tamanho das imagens; P - Pequeno, M - Medio, G - Grande e GG - Extra Grande
+TEI: Tempo de Exposicao das Imagens; P - Pequeno, M - Medio, G - Grande e GG - Extra Grande
+LAD: Lado de Exposição do Simbolo, E - Esquerda, D - Direita e A - Ambos (sempre A)
+TIO: Tamanho da Imagem do Objetivo; P - Pequeno, M - Medio, G - Grande e GG - Extra Grande (tanto faz)
+QIS: Quantidade de Imagens Simultaneas; P - Pequeno, M - Medio, G - Grande e GG - Extra Grande
+QIO: Quantidade de Imagens Objetivo; P - Pequeno (1), M - Medio (3), G - Grande (4) e GG - Extra Grande (5)
+AIO: Arquivo da Imagem de Objetivo; Nome do Arquivo da Imagem de Referência
+OTI: Ordem de Toque das Imagens; 0 - Indiferente; 1 - Crescente; 2 - Decrescente
+TEO: Tempo Exposicao Objetivo; P - Pequeno, M - Medio, G - Grande e GG - Extra Grande
+
+Publico:
+QIS: Quantidade de Imagens Simultaneas; P - 2, M - 3, G - 4 e GG - 5
+TAI: Tamanho das imagens; P - 0, M - 1, G - 2 e GG - 2
+TEI: Tempo de Exposicao das Imagens; P - 7, M - 10, G - 15 e GG - 20
+TIO: Tamanho da Imagem do Objetivo; P - 78, M - 78, G - 78 e GG - 78
+TEO: Tempo Exposicao Objetivo; P - 0, M - 2, G - 3 e GG - 4
