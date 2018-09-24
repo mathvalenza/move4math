@@ -146,6 +146,8 @@ public class Partida implements Cloneable{
         String iccSegundo[] = nivel.getSegundoICC().split(" ");
         String iccTerceiro[] = nivel.getTerceiroICC().split(" ");
         
+        System.out.println("terceiroICC: " + iccTerceiro);
+        
         switch (move4math.Move4Math.indiceFaseAtual) {
             case 1:
                 for(int i=0;i<imagens.size();i++){
@@ -221,6 +223,46 @@ public class Partida implements Cloneable{
         
     }
     
+    public void atualizaFilaElementosSequenciacao(int indiceParaIgnorar){
+        filaElementos.clear();
+        Vector<Vector<Imagem>> imagens = new Vector<Vector<Imagem>>();
+        imagens = conjuntoImagem.getImagens();
+        
+        Vector<Vector<Imagem>> imagensAux = (Vector<Vector<Imagem>>) imagens.clone();
+        Imagem imgRef;
+        
+        String sequenciacaoICC[] = nivel.getSequenciacaoICC().split(" ");
+        
+        System.out.println("sequenciacaoICC: " + sequenciacaoICC);
+        
+        for(int i=0;i<imagens.size();i++){
+            for(int j=0;j<imagens.elementAt(i).size();j++){
+               for(int k=0; k<sequenciacaoICC.length; k++){
+                   if (Integer.parseInt(sequenciacaoICC[k]) == (imagens.elementAt(i).elementAt(j).getId())){
+                       if (k==0){
+                           try {
+                               imgRef = imagens.elementAt(i).elementAt(j).clone();
+                               filaElementos.add(imgRef);
+                           } catch (CloneNotSupportedException ex) {
+                               Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+                        }else{
+                            filaElementos.add(imagens.elementAt(i).elementAt(j));
+                        }
+
+                    } 
+                }//verificar se o id pertence ao idsDoICC e, se sim, adicionar na filaElementos
+            }
+        }
+
+        //Collections.shuffle(filaElementos);
+        //System.out.println("filaElementos: ");
+        for (int i=0; i<filaElementos.size(); i++){
+            System.out.println("filaElementos.elementAt(" + i + "): " + filaElementos.elementAt(i).getId());
+        }
+        
+    }
+    
     public void shuffleElements(){
         Collections.shuffle(filaElementos);
     }
@@ -279,6 +321,32 @@ public class Partida implements Cloneable{
 
         geraFilaReferenciaAleatoria(referencia);
     }
+    
+    public void geraFilaAleatorioaSequenciacao() {
+        filaElementos.clear();
+        Vector<Vector<Imagem>> imagens = new Vector<Vector<Imagem>>();
+        imagens = conjuntoImagem.getImagens();
+        
+        MTRandom number = new MTRandom();
+        int referencia = number.nextInt(imagens.size());
+        //System.out.println("Entrou no geraFilaAleatoria");
+        String bufferSequenciacao[] = nivel.getSequenciacaoICC().split(" ");
+
+        System.out.println("bufferSequenciacao: " + bufferSequenciacao);
+
+        for(int i=0;i<imagens.size();i++){
+            for(int j=0;j<imagens.elementAt(i).size();j++){
+                for(int k=0; k<jogadasDoNivel.size(); k++){
+                    if (Integer.parseInt(bufferSequenciacao[k]) == (imagens.elementAt(i).elementAt(j).getId())){
+                        filaElementos.add(imagens.elementAt(i).elementAt(j));
+                    }
+                }
+            }
+        }
+
+        System.out.println("terminou");
+        geraFilaReferenciaAleatoria(referencia);
+    }
 
     public void geraFilaReferenciaAleatoria(int referencia){
         filaElementosReferencia.clear();
@@ -291,38 +359,16 @@ public class Partida implements Cloneable{
         //System.out.println("Entrou no geraFilaReferenciaAleatoria");
         String idsDoICC[] = imagensDaCena(move4math.Move4Math.indiceFaseAtual,nivel);
         //System.out.println(" id da referencia desejada: " + idsDoICC[0]);
-
-        //Tipo de Jogo
-        int iTipoJogoSelecionado = move4math.Move4Math.indiceJogoAtual;
-        System.out.println("Jogo: " + iTipoJogoSelecionado);
-
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // Se o jogo for classificação, o primeiro ID do ICC é a imagem que será o objetivo
-        // Se for o jogo de ordenação, contagem ou anterior e proximo, os primeiros 3 IDs do
-        // ICC serão posicionados como objetivo da linha
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
        
-        if (iTipoJogoSelecionado == 0){ //Jogo de Classificação
-            for(int i=0;i<imagens.elementAt(referencia).size();i++){
-                if (Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()){
-                    filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
-                }
-            }
-        } else { // Jogo de Ordenação, Contagem ou Anterior e Próximo
-            for(int i=0;i<imagens.elementAt(referencia).size();i++){
-                if ((Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()) || 
-                        (Integer.parseInt(idsDoICC[1]) == imagens.elementAt(referencia).elementAt(i).getId()) ||
-                        (Integer.parseInt(idsDoICC[2]) == imagens.elementAt(referencia).elementAt(i).getId())){
-                    filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
-                    //System.out.println("Adicionou na filaElementosReferencia: " + imagens.elementAt(referencia).elementAt(i).getId());
-                }
+        for(int i=0;i<imagens.elementAt(referencia).size();i++){
+            if (Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()){
+                filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
             }
         }
-        
         //filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(0));
         // System.out.println("FilaElementosReferencia: ");
         for(int i=0;i<filaElementosReferencia.size();i++){
-           // System.out.println(filaElementosReferencia.elementAt(i).getId());
+            System.out.println("filaElementosReferencia: " + filaElementosReferencia.elementAt(i).getId());
         }
         //Collections.shuffle(filaElementosReferencia);
     }

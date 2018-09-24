@@ -733,14 +733,16 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                     //System.out.println("escolha: " + escolha);
                                     numSimbolosParaGerar = (numSimbolosParaGerar/2);
                                     if(escolha == 0){
-                                        partida.geraFilaAleatoria();
+//                                        partida.geraFilaAleatoria();
+                                          partida.geraFilaAleatorioaSequenciacao();
                                         //System.out.println("chamou o 3o gerarImagens2 (esquerda)");
                                         gerarImagens2(gradeEsq, partida, numSimbolosParaGerar, true, true);
                                         //System.out.println("chamou o 4o gerarImagens2 (direita)");
                                         gerarImagens2(gradeDir, partida, numSimbolosParaGerar, false,false);
 
                                     }else if(escolha == 1){
-                                        partida.geraFilaAleatoria();
+//                                        partida.geraFilaAleatoria();
+                                        partida.geraFilaAleatorioaSequenciacao();
                                         //System.out.println("chamou o 5o gerarImagens2 (direita)");
                                         gerarImagens2(gradeDir, partida, numSimbolosParaGerar, true, true);
                                         // System.out.println("chamou o 6o gerarImagens2 (esquerda)");
@@ -1679,9 +1681,9 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     partida.atualizaFilaElementos(referencia.getGrupo());
             */
             if(isReferencia){                                      //se a referencia ainda sera gerada
-                partida.atualizaFilaElementos(partida.getFilaElementosReferencia().firstElement().getGrupo());
+                partida.atualizaFilaElementosSequenciacao(partida.getFilaElementosReferencia().firstElement().getGrupo());
             }else{                                                   //a referencia já foi gerada e removida do vetor
-                partida.atualizaFilaElementos(referencia.getGrupo());
+                partida.atualizaFilaElementosSequenciacao(referencia.getGrupo());
             }
             int GRADE_MAX = 6;
             switch (grade.getTamanhoGrade()) {
