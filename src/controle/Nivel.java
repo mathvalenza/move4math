@@ -26,7 +26,7 @@ public class Nivel {
     private String primeiroICC; //Imagens que compoem a cena da 1ª fase, respeitando o parametro QIS
     private String segundoICC; //Imagens que compoem a cena da 2ª fase, respeitando o parametro QIS
     private String terceiroICC; //Imagens que compoem a cena da 3ª fase, respeitando o parametro QIS
-    private String sequenciacaoICC; // Imagem da cena do jogo de sequenciação
+
     /**
      * @return the numero
      */
@@ -205,16 +205,5 @@ public class Nivel {
      */
     public void setTerceiroICC(String terceiroICC) {
         this.terceiroICC = terceiroICC;
-    }
-    
-    public String getSequenciacaoICC() {
-        return sequenciacaoICC;
-    }
-
-    /**
-     * @param sequenciacaoICC the terceiroICC to set
-     */
-    public void setSequenciacaoICC(String sequenciacaoICC) {
-        this.sequenciacaoICC = sequenciacaoICC;
     }
 }

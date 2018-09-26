@@ -232,9 +232,6 @@ public class ParserPublics {
             //terceiroICC
             aux.setTerceiroICC(vet1.elementAt(10));
             
-            //sequenciacaoICC
-            aux.setSequenciacaoICC(vet1.elementAt(11));
-            
             nivel.add(aux);
         }
         

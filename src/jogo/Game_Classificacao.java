@@ -1879,20 +1879,19 @@ public class Game_Classificacao extends javax.swing.JFrame {
         void ocultaReferencia(Nivel nivel){
             if (move4math.Move4Math.indiceJogoAtual == 0){
                 mostrarReferencias = false;
-            } else {
-                if (move4math.Move4Math.indiceJogoAtual == 1 || move4math.Move4Math.indiceJogoAtual == 2){
-                    //Jogo de Ordenação ou Contagem
-                    mostrarReferencias = true;
-                    //Criar uma imagem para ocupar o espaço da segunda imagem da sequencia
-                    //de imagens do objetivo da linha
-                    //As coordenadas estão corretas
+            } else {if (move4math.Move4Math.indiceJogoAtual == 1 || move4math.Move4Math.indiceJogoAtual == 2){
+                //Jogo de Ordenação ou Contagem
+                mostrarReferencias = true;
+                //Criar uma imagem para ocupar o espaço da segunda imagem da sequencia
+                //de imagens do objetivo da linha
+                //As coordenadas estão corretas
 
-                    Mat silhueta = Imgcodecs.imread("Resources/images/corpo.png",1);            
-                    Imgproc.resize(silhueta, silhueta, new Size(50.0, 50.0));
-                    dst = new Mat();
-                    Mat roiSilhueta = cenario.submat(new Rect(new Point(250, 15),new Point(300, 65)));
-                    Core.addWeighted(roiSilhueta,1.0,silhueta,0.8,0.0,dst);
-                    dst.copyTo(cenario.colRange(250,300).rowRange(15,65));
+                Mat silhueta = Imgcodecs.imread("Resources/images/corpo.png",1);            
+                Imgproc.resize(silhueta, silhueta, new Size(50.0, 50.0));
+                dst = new Mat();
+                Mat roiSilhueta = cenario.submat(new Rect(new Point(250, 15),new Point(300, 65)));
+                Core.addWeighted(roiSilhueta,1.0,silhueta,0.8,0.0,dst);
+                dst.copyTo(cenario.colRange(250,300).rowRange(15,65));
                 } else {
                     //Jogo de Anterior/Proximo
                     if (nivel.getOTI()==1){

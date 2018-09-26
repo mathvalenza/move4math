@@ -1,10 +1,11 @@
-Data Cadastro:;24/09/2018
+Data Cadastro:;26/09/2018
 Nome:;teste crianca
-Data Nascimento:;24/09/2018
+Data Nascimento:;26/09/2018
 Sexo:;Masculino
 Publico:;Crianca
 Vidas:;3
 Justificativa Público:;teste crianca
-Fase Alfabetização Matemática:;Não Desenvolvido
+Fase Alfabetização Matemática:;Em Desenvolvimento
 Justificativa Fase Alfabetização Matemática:;teste crianca
 # Sessao;Data de Uso;Hora Inicio;Jogo;Fase;Nivel;Pontuacao Geral da Tela;Tempo Total (min)
+1;26/09/2018;20:49:38;Classificacao;1;1;139;0
