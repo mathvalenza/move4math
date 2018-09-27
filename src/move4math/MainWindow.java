@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jogo.Game_Classificacao;
 import jogo.Game_Ordenacao;
+import jogo.Game_Sequenciacao;
 import org.opencv.videoio.VideoCapture;
 
 /**
@@ -30,6 +31,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     Game_Classificacao gameWindow = new Game_Classificacao();
     Game_Ordenacao gameWindow2 = new Game_Ordenacao();
+    Game_Sequenciacao gameWindowSequenciacao = new Game_Sequenciacao();
 
     /**
      * Creates new form MainWindow
@@ -134,7 +136,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, -1, 25));
 
         cmbTipoJogo.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cmbTipoJogo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Classificacao", "Ordenacao" }));
+        cmbTipoJogo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Classificacao", "Ordenacao", "Sequenciacao" }));
         cmbTipoJogo.setSelectedIndex(-1);
         cmbTipoJogo.setToolTipText("");
         cmbTipoJogo.addActionListener(new java.awt.event.ActionListener() {
@@ -384,6 +386,68 @@ public class MainWindow extends javax.swing.JFrame {
                             //NOVO 
                             System.out.println("mainwindow: " + Move4Math.indiceNivelAtual + "     " + Move4Math.indiceJogoAtual);
                             gameWindow2.Iniciar(gameWindow2, Move4Math.jogos.elementAt(Move4Math.indiceJogoAtual), Move4Math.getPublicoId(Move4Math.indicePublicoAtual), Move4Math.players.elementAt(Move4Math.indicePlayerAtual), Move4Math.conjuntosDeTrabalho, Move4Math.indiceFaseAtual, Move4Math.indiceNivelAtual);
+                            //gameWindow.Iniciar(gameWindow,Move4Math.jogos.elementAt(indexJogo),Move4Math.getPublicoId(indexPublico), Move4Math.players.elementAt(indexPlayer), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
+                            //gameWindow.Iniciar(gameWindow,Move4Math.jogos.elementAt(Move4Math.jogos.get(cmbTipoJogo.getSelectedIndex()).getId()),Move4Math.publicos.elementAt(Move4Math.jogos.elementAt(cmbTipoJogo.getSelectedIndex()).getPublico().get(cmbPublico.getSelectedIndex()).getId()), Move4Math.players.elementAt(cmbNome.getSelectedIndex()), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
+                            //ANTIGO
+                            //gameWindow.Iniciar(gameWindow,Move4Math.publicos.elementAt(indexPublico), Move4Math.players.elementAt(indexPlayer), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel, tempo);
+                        } catch (IOException | InterruptedException ex) {
+                            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                            System.out.println(ex.getStackTrace());
+                        }
+                    }
+                }
+                break;
+            case 2:
+                gameWindowSequenciacao.setSize(width, height);
+                gameWindowSequenciacao.dispose();
+                gameWindowSequenciacao.setUndecorated(true);
+                gameWindowSequenciacao.setVisible(true);
+                gameWindowSequenciacao.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                gameWindowSequenciacao.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                gameWindowSequenciacao.addKeyListener(new KeyListener() {
+
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        tecla = e;
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+                    }
+                });
+
+                VideoCapture webSourceSequenciacao = new VideoCapture(0);
+                if (!webSourceSequenciacao.isOpened()) {
+                    JOptionPane.showMessageDialog(null, "Webcam não encontrada!");
+                    gameWindowSequenciacao.dispose();
+                } else {
+                    webSourceSequenciacao.release();
+
+                    System.out.println("Player: " + indexPlayer);
+
+                    if (indexPlayer == -1) {
+                        JOptionPane.showMessageDialog(null, "Jogador não selecionado!");
+                        gameWindowSequenciacao.dispose();
+                    } else {
+
+                        try {
+                            /*
+                            System.out.println(indexJogo+" "+ indexPublico+" "+ indexPlayer+" "+ indexFase+" "+ indexNivel);
+                            System.out.println("GAME" + gameWindow);
+                            System.out.println("JOGO"+ "" + Move4Math.jogos.elementAt(Move4Math.indiceJogoAtual).getId() + "" + Move4Math.jogos.elementAt(Move4Math.indiceJogoAtual).getNome());
+                            System.out.println("PUBLICO"+Move4Math.getPublicoId(Move4Math.indicePublicoAtual).getNome());
+                            System.out.println("PLAYER"+Move4Math.players.elementAt(Move4Math.indicePlayerAtual).getNome());
+                            System.out.println("OUTROS"+Move4Math.conjuntosDeTrabalho +","+ indexFase +","+ indexNivel);
+                            gameWindow.Iniciar(gameWindow,"Classificacao",1, 1, Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
+                            gameWindow.Iniciar(gameWindow,Move4Math.jogos.elementAt(cmbTipoJogo.getSelectedIndex()).getId(),Move4Math.jogos.elementAt(cmbTipoJogo.getSelectedIndex()).getPublico().elementAt(cmbTipoJogo.getSelectedIndex()).getId(), Move4Math.players.elementAt(cmbNome.getSelectedIndex()).getId(), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
+                            */
+                            //NOVO 
+                            System.out.println("mainwindow: " + Move4Math.indiceNivelAtual + "     " + Move4Math.indiceJogoAtual);
+                            gameWindowSequenciacao.Iniciar(gameWindowSequenciacao, Move4Math.jogos.elementAt(Move4Math.indiceJogoAtual), Move4Math.getPublicoId(Move4Math.indicePublicoAtual), Move4Math.players.elementAt(Move4Math.indicePlayerAtual), Move4Math.conjuntosDeTrabalho, Move4Math.indiceFaseAtual, Move4Math.indiceNivelAtual);
                             //gameWindow.Iniciar(gameWindow,Move4Math.jogos.elementAt(indexJogo),Move4Math.getPublicoId(indexPublico), Move4Math.players.elementAt(indexPlayer), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
                             //gameWindow.Iniciar(gameWindow,Move4Math.jogos.elementAt(Move4Math.jogos.get(cmbTipoJogo.getSelectedIndex()).getId()),Move4Math.publicos.elementAt(Move4Math.jogos.elementAt(cmbTipoJogo.getSelectedIndex()).getPublico().get(cmbPublico.getSelectedIndex()).getId()), Move4Math.players.elementAt(cmbNome.getSelectedIndex()), Move4Math.conjuntosDeTrabalho, indexFase, indexNivel);
                             //ANTIGO

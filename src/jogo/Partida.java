@@ -302,7 +302,7 @@ public class Partida implements Cloneable{
         // ICC serão posicionados como objetivo da linha
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
        
-        if (iTipoJogoSelecionado == 0){ //Jogo de Classificação
+        if (iTipoJogoSelecionado == 0 || iTipoJogoSelecionado == 2){ //Jogo de Classificação ou Sequenciação
             for(int i=0;i<imagens.elementAt(referencia).size();i++){
                 if (Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()){
                     filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
