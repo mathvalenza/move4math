@@ -658,6 +658,11 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 mostrarTopoFeedback(piscarTopo, partida);
                         }
 
+                        System.out.println("\n\n\n");
+                        System.out.println("partida.getNivel().getNumeroLinha() - 1: " + (partida.getNivel().getNumeroLinha() - 1));
+                        System.out.println("jogadasDoNivel.get(3): " + jogadasDoNivel.get(3));
+                        System.out.println("\n\n\n");
+
                         if ((partida.getNivel().getNumeroLinha() - 1) == (int) jogadasDoNivel.get(3) && (numAcertosNaRodada == NST || numErrosLimite == 16)){
                             //System.out.println("chegou na ultima posicao do jogadas do nivel, que eh: " + (int) jogadasDoNivel.get(3));
                             segundosAux2 = segundos;
@@ -689,7 +694,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                     //incrementa NST
                                     contNST++;
                                     if(numRodadasGeradas != NST*4){
-                                        //verificaTransicaoDeNivel(partida);
                                         numRodadasGeradas++;
                                     } //Matheus
                                     //System.out.println("numRodadasGeradas : " + numRodadasGeradas);
@@ -967,8 +971,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                                         if(numAcertosNaRodada==NST && (partida.getNivel().getNumeroLinha() - 1) != (int) jogadasDoNivel.get(3)){ // era contNST == NST, mas como queremos que avance de linha apenas quando o usuário completar os objetivos propostos, precisamos verificar se o número de acertos é igual ao de objetivos e se ele não está na última linha do nível.
                                             contNST = 0;
-
-                                            // verificaTransicaoDeNivel(partida);
                                             segundosAux2 = segundos;
                                             minutosAux2 = minutos;
                                             irParaProximaLinha = false;
@@ -1024,7 +1026,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                                         if(numAcertosNaRodada==NST){
                                             contNST = 0;
-                                           // verificaTransicaoDeNivel(partida);
                                            verificaTransicaoDeLinha(partida);
                                         }
                                     }

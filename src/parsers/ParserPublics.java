@@ -26,7 +26,7 @@ import move4math.MainWindow;
  * @author Mayco, Matheus, Henrique
  */
 public class ParserPublics {
-    public static int linhaAtual;
+    public static int linhaAtual = 0;
     static boolean jaContouAsLinhas = false;
     public static Vector<Publico> loadPublicos(String jogos) throws IOException{
         
@@ -45,7 +45,7 @@ public class ParserPublics {
             aux.setNome(diretorios[i].getName());
             
             String arquivo = diretorios[i].getPath();
-            System.out.println(arquivo);
+            System.out.println("arquivo: " + arquivo);
             aux.setConfiguracoes(parserParametros(arquivo));
             aux.setFases(parserFases(arquivo,aux.getConfiguracoes()));
             aux.setNiveis(parserNiveis(arquivo,aux.getConfiguracoes()));
@@ -113,27 +113,24 @@ public class ParserPublics {
             aux = new Nivel();
             vet1 = new Vector<String>(Arrays.asList(row));
             
-                if("G".equals(vet1.elementAt(0))){
-                    linhaAtual++;
-                   // System.out.print(vet1.elementAt(0) + " ");
-                   // System.out.println("linha: " + linhaAtual);
-                }
-                if("M".equals(vet1.elementAt(0))){
-                    linhaAtual++;
-                   // System.out.print(vet1.elementAt(0) + " ");
-                   // System.out.println("linha: " + linhaAtual);
-                }
-                if("P".equals(vet1.elementAt(0))){
-                    linhaAtual++;
-                   // System.out.print(vet1.elementAt(0) + " ");
-                   // System.out.println("linha: " + linhaAtual);
-                }
-                if (linhaAtual == vet.size()){
-                    aux.setNumeroLinha(vet.size());
-                    linhaAtual = 0;
-                }else{
-                    aux.setNumeroLinha(linhaAtual);
-                }
+            if("G".equals(vet1.elementAt(0))){
+                linhaAtual++;
+               // System.out.print(vet1.elementAt(0) + " ");
+               // System.out.println("linha: " + linhaAtual);
+            }
+            if("M".equals(vet1.elementAt(0))){
+                linhaAtual++;
+               // System.out.print(vet1.elementAt(0) + " ");
+               // System.out.println("linha: " + linhaAtual);
+            }
+            if ("P".equals(vet1.elementAt(0))) {
+                linhaAtual++;
+               // System.out.print(vet1.elementAt(0) + " ");
+               // System.out.println("linha: " + linhaAtual);
+            }
+            
+            aux.setNumeroLinha(linhaAtual);
+            
             
             //if ()
             //linhaAtual++;
@@ -234,6 +231,8 @@ public class ParserPublics {
             
             nivel.add(aux);
         }
+        
+        linhaAtual = 0;
         
 //        for(String[] row : vet2){
 //            aux = new Nivel();
