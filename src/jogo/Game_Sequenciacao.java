@@ -126,6 +126,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     
     Calendar espera;
     
+    int[] testeSequenciaTriangulos = {25,26,27}; // triangulo borda fina, grossa e preenchida
+    
     private void ReiniciaVariaveis(){
         piscarTopo = true;
         fimDeJogo = false;
@@ -758,6 +760,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 }
                                 referencia.setX(referencia.getX() + deslocamento);
 
+                                // mostrando
                                 if(mostrarReferencias && numAcertosNaRodada < partida.getNivel().getQIO()){ //No lugar do '3' seria partida.getNivel().getQIO() ????
                                     //mostrarReferencias é uma variável booleana que é desabilitada quando a função ocultaReferencia é chamada
                                     for (int i = 0;i<partida.getNivel().getQIO();i++){
@@ -1152,6 +1155,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
         //------------------------------------------------------------------------------------------------------------------------------------------
 
         void verificaTransicaoDeLinha (Partida partida){
+            System.out.println("\n\nchamou verifica transição de linha\n\n");
             // a transicao de linha sempre é feita, pois a avaliação se dá ao fim de cada nível
             partida.setNivel(publico.getNiveis().elementAt((int) jogadasDoNivel.get(posicaoJogadasDoNivel)));
             posicaoJogadasDoNivel++;
@@ -1465,8 +1469,11 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                     somaTempoToque += tempoToque;
 
+                    System.out.println("testeSequenciaTriangulos[numAcertosNaRodada]: " + testeSequenciaTriangulos[numAcertosNaRodada]);
+                    System.out.println("\n tocada: " + grade.getRegioes().elementAt(i).getImg().getId());
                     //o if abaixo decide se a imagem tocada está certa ou errada
-                    if(grade.getRegioes().elementAt(i).getImg().getId()==referencia.getId()){
+                    if(grade.getRegioes().elementAt(i).getImg().getId()==testeSequenciaTriangulos[numAcertosNaRodada]){
+//                    if(grade.getRegioes().elementAt(i).getImg().getId()==referencia.getId()){
                         //Acho que é assim que separa os pontos...
                         tipoColisao = 1;
                         rodada.setAcao("Acertou");
