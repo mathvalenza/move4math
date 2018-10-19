@@ -101,6 +101,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     int tipoFeedback; //0 - Avança linha;1 - Avança nivel; 2 - Permanece nível; 3 - Retrocede nivel;
                       //4 - Avança fase; 5 - Retrocede fase; 6 - Perde vida;
     Referencia referencia;
+    Referencia referencia2;
     int tempoExposicao;
 
     boolean primeiroToque = true;
@@ -164,6 +165,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     
     public Game_Sequenciacao(){
         this.referencia = new Referencia();
+        this.referencia2 = new Referencia();
         initComponents();
                 
         fimDeJogo = false;
@@ -284,7 +286,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             System.out.println("-------");
             int nivelParaSetar = 0;
             
-            //aqui o vetor de níveis é percorrido setando-se corretamente os níveis
+            // o vetor de níveis é percorrido setando-se corretamente os níveis
             for (int i = 0; i<publico.getNiveis().size(); i++){
                 //System.out.println("i: " + i + " | i%4: " + i%4);
                 if (i%4 == 0){
@@ -327,9 +329,9 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
             linhaNivelSelecionado = partida.selecionaLinhaNivel(indexNivel);
 
-            int o = Integer.parseInt(jogadasDoNivel.get(0).toString());//aqui dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
+            int o = Integer.parseInt(jogadasDoNivel.get(0).toString());// dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
 
-            partida.setNivel(publico.getNiveis().elementAt(o)); //aqui é setado o "nivel" pelo JOGADASDONIVEL na primeira posição. O avanço depois é dado pela transiçãoDeLinha
+            partida.setNivel(publico.getNiveis().elementAt(o)); // é setado o "nivel" pelo JOGADASDONIVEL na primeira posição. O avanço depois é dado pela transiçãoDeLinha
 
             partida.setPlayer(player); //acho que não precisa, pois podemos alterar o player que foi passado por parametro na funcao
             //int CIT2 = partida.getJogo().getCIT();
@@ -735,20 +737,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                             // -+-+-+-+-+-+ mostra imagem e/ou som de REFERENCIA
                             if( partida.getFase().getEST() != 0) {
-                                // background
-                                //dst = new Mat();
-                                //Mat backRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth()-2, referencia.getY() + referencia.getHeight()-2)));
-
-                                //Core.addWeighted(ref_background,1.0,backRef , 0.5, 0.0, dst);
-                                //dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()-2).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()-2));
-
-                                //imagem
-    //                            Nivel nivel = new Nivel();
-    //                            nivel.getQIO();
-    //                            nivel.getAIO();
-    //                                                          180                             0                           78                                  78
-                                
-                                //mostra quantidade de imagens do objetivo aaqui
+                                //mostra quantidade de imagens do objetivo
                                 int deslocamento=0;
                                 if (partida.getNivel().getQIO() == 3){
                                     deslocamento = 50;
@@ -758,23 +747,51 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                     deslocamento = 25;
                                 }
                                 referencia.setX(referencia.getX() + deslocamento);
+                                referencia2.setX(referencia2.getX() + deslocamento);
 
-                                // mostrando
+                                // mostrando imagens referencia
                                 if(mostrarReferencias && numAcertosNaRodada < partida.getNivel().getQIO()){ //No lugar do '3' seria partida.getNivel().getQIO() ????
                                     //mostrarReferencias é uma variável booleana que é desabilitada quando a função ocultaReferencia é chamada
                                     for (int i = 0;i<partida.getNivel().getQIO();i++){
-                                        dst = new Mat();
-                                        Mat mescRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
-                                        //Imgcodecs.imwrite("hue1.png",referencia.getImagem());
-                                        //Imgcodecs.imwrite("hue2.png",mescRef);
-                                        Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
-                                        dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
+                                        if (i == 1) {
+//                                            Imagem elemento = partida.getFilaElementosReferencia().lastElement();
+//                                            Imagem imgRefTemp = new Imagem(elemento);
+//                                            referencia2.setWidth(partida.getNivel().getTIO());
+//                                            referencia2.setHeight(partida.getNivel().getTIO());
+//
+//                                            switch(Move4Math.indiceJogoAtual){
+//                                                case 2:
+//                                                    referencia2.setX(195);
+//                                                    break;
+//                                                default :
+//                                                    referencia2.setX(280);
+//                                                    break;
+//                                            }
+//
+//                                            referencia2.setY(10);
+//                                            Mat tempRef = new Mat();
+//                                            tempRef = imgRefTemp.getImg();
+//                                            Imgproc.resize(tempRef,tempRef,new Size(partida.getNivel().getTIO(), partida.getNivel().getTIO()));
+//                                            referencia2.setImagem(tempRef);
+//                                            referencia2.setId(imgRefTemp.getId());
+//                                            
+//                                            descRef = imgRefTemp.getDescricao();
+//                                            //coloca as descricoes
+//                                            referencia2.setRefImgStr(imgRefTemp.getDescricao());
+//                                            referencia2.setSom(imgRefTemp.getSom());
+//                                            referencia2.setGrupo(imgRefTemp.getGrupo());
+                                            
+                                        } else {
+                                            dst = new Mat();
+                                            Mat mescRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
+                                            
+                                            Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
+                                            dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
 
-                                        //dst = new Mat();
-                                        referencia.setX(referencia.getX() + referencia.getWidth());
-                                        //Mat mescRef2 = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
-                                        //Core.addWeighted(referencia.getImagem(), 1.0, mescRef2, 0.3, 0.0, dst);
-                                        //dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
+                                            referencia.setX(referencia.getX() + referencia.getWidth());
+                                            referencia.setX(referencia.getX() + referencia.getWidth());
+
+                                        }
                                     }
                                 }
 
@@ -785,6 +802,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
                                             dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
                                             referencia.setX(referencia.getX() + referencia.getWidth());  
+                                            referencia2.setX(referencia2.getX() + referencia2.getWidth()); 
                                     }
                                     if (!mostrarEstrelas){ //talvez tirar esse if
                                         for (int i=numAcertosNaRodada; i<partida.getNivel().getQIO(); i++){
@@ -794,21 +812,14 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Core.addWeighted(roiSombraObjetivo,0.0,sombraObjetivo,1.0,0.0,dst);
                                             dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
                                             referencia.setX(referencia.getX() + referencia.getWidth());
+                                            referencia2.setX(referencia2.getX() + referencia2.getWidth()); 
                                         } 
                                     }
                                 }
 
                                 if (Move4Math.indiceJogoAtual == 0 || Move4Math.indiceJogoAtual == 2){
                                     referencia.setX(195);
-                                    /*
-                                    if (partida.getNivel().getQIS() == 5){
-                                        referencia.setX(195);
-                                    }else if(partida.getNivel().getQIS() == 4){
-                                        referencia.setX(220);
-                                    }else if (partida.getNivel().getQIS() == 3){
-                                        referencia.setX(245);
-                                    }
-                                    */
+                                    referencia2.setX(195);
                                 }else{
                                     if (Move4Math.indiceJogoAtual == 1){
                                         referencia.setX(250);
@@ -1293,7 +1304,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                 jogadasDoNivel = partida.geraJogadasDoNivel(numeroNivelNovo);
                 //System.out.println(" ");
                 System.out.println("novo jogadasDoNivel: " + jogadasDoNivel.toString());
-                int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); //aqui dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
+                int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); // dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
 
                 partida.setNivel(publico.getNiveis().elementAt(o)); //Matheus
                 numRodadasGeradas=1;
@@ -1318,7 +1329,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             int numeroNivelNovo;
             //int iVidas = player.getVidas();
             
-            if(indexNivel>0){ //aqui talvez tenha que testar o partida.getNivel().getNumero();
+            if(indexNivel>0){ // talvez tenha que testar o partida.getNivel().getNumero();
                 numeroNivelAntigo = partida.getNivel().getNumero();
                 numeroNivelNovo = numeroNivelAntigo - 1;
                 partida.setNivel(publico.getNiveis().elementAt((numeroNivelNovo-1)*4)); //Matheus
@@ -1326,7 +1337,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                 jogadasDoNivel.clear();
                 jogadasDoNivel = partida.geraJogadasDoNivel(numeroNivelNovo);
                 System.out.println("novo jogadasDoNivel: " + jogadasDoNivel.toString());
-                int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); //aqui dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
+                int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); // dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
                 
                 partida.setNivel(publico.getNiveis().elementAt(o)); //Matheus
                 numRodadasGeradas=1;
@@ -1348,7 +1359,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             jogadasDoNivel = partida.geraJogadasDoNivel(partida.getNivel().getNumero());
 
             System.out.println("novo jogadasDoNivel: " + jogadasDoNivel.toString());
-            int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); //aqui dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
+            int o = Integer.parseInt(jogadasDoNivel.get(0).toString()); // dava problema, pois eu setava o próximo nivel a partir do cálculo da primeira linha; mas este deve ser setado com a primeira posição do jogadasDoNivel
 
             partida.setNivel(publico.getNiveis().elementAt(o)); //Matheus
 
@@ -1589,35 +1600,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
         }
 
         void gerarImagens2(Grade grade, Partida partida, int numSimbolosParaGerar, boolean emitirSom,boolean isReferencia) throws LineUnavailableException, UnsupportedAudioFileException, IOException{
-            /*    
-            //MAYCO
-            int Gao = partida.getFase().getGAO();
-            System.out.println(partida.getFilaElementosReferencia().isEmpty());
-
-            if(Gao==2){
-                partida.geraFilaFixaReferencias();
-            }else
-                partida.geraNovaFilaReferencias();
-
-            if(partida.getFilaElementosReferencia().isEmpty()&&(Gao == 2)){
-                partida.geraFilaFixaReferencias();
-            }else
-                partida.geraNovaFilaReferencias();
-
-            if(partida.getFilaElementosReferencia().isEmpty()){
-                System.out.println("chamou geraNovaFilaReferencias");
-                partida.geraNovaFilaReferencias(partida.imagensDaCena(partida.getNivel()));
-            }
-            */
-
             boolean controle = false;
-            /*
-            if(partida.getFilaElementos().size()<numSimbolosParaGerar) //se fila nao tem imagens suficientes
-                if(isReferencia)                                        //se a referencia ainda sera gerada
-                    partida.atualizaFilaElementos(partida.getFilaElementosReferencia().firstElement().getGrupo());
-                else                                                    //a referencia já foi gerada e removida do vetor
-                    partida.atualizaFilaElementos(referencia.getGrupo());
-            */
+            
             if(isReferencia){                                      //se a referencia ainda sera gerada
                 partida.atualizaFilaElementos(partida.getFilaElementosReferencia().firstElement().getGrupo());
             }else{                                                   //a referencia já foi gerada e removida do vetor
@@ -1660,7 +1644,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     break;
             }
 
-            if(isReferencia){ //seta a referencia que vai aparecer no topo da tela  aqui
+            if(isReferencia){ //seta a referencia que vai aparecer no topo da tela
                 System.out.println("\nFILA ELEMENTOS REFERENCIA EM GAME:\n");
                 for(int i=0; i<partida.getFilaElementosReferencia().size(); i++) {
                     System.out.println(partida.getFilaElementosReferencia().get(i).getId() + " ");
@@ -1671,10 +1655,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                 referencia.setHeight(partida.getNivel().getTIO());
 
                 switch(Move4Math.indiceJogoAtual){
-                    case 0:
-                        referencia.setX(195);
-                        break;
-                    case 1:
                     case 2:
 //                        referencia.setX(250);
                         referencia.setX(195);
@@ -1683,30 +1663,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                         referencia.setX(280);
                         break;
                 }
-/*                
-                if (Move4Math.indiceJogoAtual == 0){
-                    switch (partida.getNivel().getQIS()) {
-                    case 5:
-                        referencia.setX(195);
-                        break;
-                    case 4:
-                        referencia.setX(220);
-                        break;
-                    case 3:
-                        referencia.setX(245);
-                        break;
-                    default:
-                        break;
-                    }
-                    referencia.setX(195);
-                }else{
-                    if (Move4Math.indiceJogoAtual == 1 || Move4Math.indiceJogoAtual == 2){
-                        referencia.setX(250);
-                    }else{
-                        referencia.setX(280);
-                    }
-                } 
-// */               
+                
                 referencia.setY(10);
                 Mat tempRef = new Mat();
                 tempRef = imgRefTemp.getImg();
@@ -1738,8 +1695,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             
             MTRandom number = new MTRandom();
             for(int i=0; i<numSimbolosParaGerar;i++){
-                if(isReferencia && controle){ //seta a imagem equivalente à referencia em uma das posições da grade
-                    //nunca ta entrando aqui porque fiz controle = false (ou seja, agora pode deixar filaElementosReferencia com apenas um elemento)
+                if(isReferencia && controle && false){ //seta a imagem equivalente à referencia em uma das posições da grade
+                    //nunca ta entrando porque fiz controle = false (ou seja, agora pode deixar filaElementosReferencia com apenas um elemento)
                     Imagem imgRefTemp = null;
                     for(int j=0;j<partida.getFilaElementosReferencia().size();j++){
                         if(partida.getFilaElementosReferencia().elementAt(j).getGrupo()==referencia.getGrupo()){
@@ -1772,18 +1729,12 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     controle = false;
                     
                 }else{
-                    // System.out.println("entrou no ELSE");
+                    // aqui
                     if (elementoDaFila == partida.getFilaElementos().size()){
                         elementoDaFila = 0;
                     }
                     Imagem imgTemp = new Imagem(partida.getFilaElementos().elementAt(elementoDaFila));
                     elementoDaFila++;
-    //                    if (!partida.getFilaElementos().isEmpty()){
-    //                        System.out.println("chamou remove");
-    //                        partida.removeElementoDaFila(partida.getFilaElementos());
-    //                    }
-                    //sorteia uma posição na grade
-                    //ps: refazer essa rotina para sortear com probabilidades
                     int posicao = number.nextInt(grade.getRegioes().size());
                     while(posicoesOcupadas.get(posicao)==1)
                         posicao = number.nextInt(grade.getRegioes().size());
@@ -1794,10 +1745,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     tempRef = imgTemp.getImg();
                     Imgproc.resize(tempRef,tempRef,new Size(width, height));
                     imgTemp.setImg(tempRef);
-                    //System.out.println("id da imagem: " + imgTemp.getId());
                     grade.getRegioes().elementAt(posicao).setImg(imgTemp);
 
-                    //seta regiao como ocupada
                     grade.getRegioes().elementAt(posicao).setOcupado(true);
                     int numImagens = grade.getNumImagens();
                     grade.setNumImagens(numImagens+1);
@@ -2157,9 +2106,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
         }
         
         public void mostrarTopoFeedback(boolean piscarTopo, Partida partida){
-            //AQUI to mostrando o topoFeedback
-            //System.out.println("auxTopoFeedback: " + auxTopoFeedback);
-
             if (piscarTopo){
                 auxTopoFeedback++;
                 int TEO = partida.getNivel().getTEO();
