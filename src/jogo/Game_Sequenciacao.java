@@ -383,6 +383,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             contCheckCollision = 0;
 
             NST = partida.getNivel().getQIO(); //numero de simbolos para recalcular o nivel (??)
+            System.out.println("\n\n partida.getNivel().getQIO(): " + partida.getNivel().getQIO());
             // NST = 3; //teste
 
             contNST = 0;
@@ -652,17 +653,14 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                         }
 
                         if((partida.getNivel().getNumeroLinha() - 1) == (int) jogadasDoNivel.get(0) && mostrarReferencias){
-                                //System.out.println("Chamou mostrarTopoFeedback da primeira linha");
                                 mostrarTopoFeedback(piscarTopo, partida);
                         }
 
                         if ((partida.getNivel().getNumeroLinha() - 1) == (int) jogadasDoNivel.get(3) && (numAcertosNaRodada == NST || numErrosLimite == 16)){
-                            //System.out.println("chegou na ultima posicao do jogadas do nivel, que eh: " + (int) jogadasDoNivel.get(3));
                             segundosAux2 = segundos;
                             minutosAux2 = minutos;
                             verificaTransicaoDeNivel(partida);
                         }
-                        //System.out.println("geraProximaLinha = " +geraProximaLinha + " | grades = " + ((gradeEsq.getNumImagens()==0)&&(gradeDir.getNumImagens()==0)));
                         if((gradeEsq.getNumImagens()==0)&&(gradeDir.getNumImagens()==0) && geraProximaLinha){
                             /*
                             * Antes de gerar, espera um tempo com o contador SLEEP_B
@@ -749,13 +747,14 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     //                            nivel.getQIO();
     //                            nivel.getAIO();
     //                                                          180                             0                           78                                  78
-                                //System.out.println("REF" + "X:"+referencia.getX() + "" + "Y:"+referencia.getY() + "" + "L:"+referencia.getWidth()+ "" + "A:"+referencia.getHeight());
-
+                                
                                 //mostra quantidade de imagens do objetivo aaqui
                                 int deslocamento=0;
                                 if (partida.getNivel().getQIO() == 3){
                                     deslocamento = 50;
-                                }else if(partida.getNivel().getQIO() == 4){
+                                } else if (partida.getNivel().getQIO() == 2) {
+                                    deslocamento = 75;
+                                } else if(partida.getNivel().getQIO() == 4){
                                     deslocamento = 25;
                                 }
                                 referencia.setX(referencia.getX() + deslocamento);
@@ -908,7 +907,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                                         segundosAux = segundos;
                                         minutosAux = minutos;
-                                        System.out.println("TIPO COLISAO: " + tipoColisao + "; Pontos Motor: " + iPontosMotor + "; Pontos Cognitivo: " + iPontosCognitivo);
                                         iPontosMotor = 0;
                                         iPontosCognitivo = 0;
                                         switch (tipoColisao) {
@@ -1289,8 +1287,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
             //if(indexNivel<publico.getNiveis().size()-1){
             if(indexNivel<publico.getNiveis().size()/4){   
-                //System.out.println("entrou IF" + "IND_N: " + indexNivel + "TAM: " + publico.getNiveis().size()/4);
-                //System.out.println("FIM DE UM NÍVEL");
                 numeroNivelNovo = numeroNivelAntigo + 1;
 
                 jogadasDoNivel.clear();

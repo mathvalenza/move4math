@@ -268,7 +268,6 @@ public class Partida implements Cloneable{
                 for(int j=0;j<imagens.elementAt(i).size();j++){
                     for(int k=0; k<jogadasDoNivel.size(); k++){
                         if (Integer.parseInt(bufferSequenciacao[k]) == (imagens.elementAt(i).elementAt(j).getId())){
-                            System.out.println("adicionou imagem de id " + imagens.elementAt(i).elementAt(j).getId());
                             filaElementos.add(imagens.elementAt(i).elementAt(j));
                         }
                     }
@@ -281,7 +280,6 @@ public class Partida implements Cloneable{
                         for(int j=0;j<imagens.elementAt(i).size();j++){
                             for(int k=0; k<jogadasDoNivel.size(); k++){
                                 if (Integer.parseInt(bufferPrimeiro[k]) == (imagens.elementAt(i).elementAt(j).getId())){
-                                    System.out.println("adicionou imagem de id " + imagens.elementAt(i).elementAt(j).getId());
                                     filaElementos.add(imagens.elementAt(i).elementAt(j));
                                 }
                             }
@@ -332,7 +330,6 @@ public class Partida implements Cloneable{
 
         //Tipo de Jogo
         int iTipoJogoSelecionado = move4math.Move4Math.indiceJogoAtual;
-        System.out.println("Jogo: " + iTipoJogoSelecionado);
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // Se o jogo for classificação, o primeiro ID do ICC é a imagem que será o objetivo
@@ -353,10 +350,10 @@ public class Partida implements Cloneable{
                 }
             }
             
-            System.out.println("\nFILA ELEMENTOS REFERENCIA:\n");
-            for(int i=0; i<filaElementosReferencia.size(); i++) {
-                System.out.println(filaElementosReferencia.get(i).getId() + " ");
-            }
+//            System.out.println("\nFILA ELEMENTOS REFERENCIA:\n");
+//            for(int i=0; i<filaElementosReferencia.size(); i++) {
+//                System.out.println(filaElementosReferencia.get(i).getId() + " ");
+//            }
         }else { // Jogo de Ordenação, Contagem ou Anterior e Próximo
             for(int i=0;i<imagens.elementAt(referencia).size();i++){
                 if ((Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()) || 

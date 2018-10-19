@@ -190,11 +190,13 @@ public class ParserPublics {
             //QIO
             if("1".equals(vet1.elementAt(5))){
                 aux.setQIO(1);
-            }else if("3".equals(vet1.elementAt(5))){
+            } else if("2".equals(vet1.elementAt(5))){
+                aux.setQIO(2);
+            } else if("3".equals(vet1.elementAt(5))){
                 aux.setQIO(3);
-            }else if("4".equals(vet1.elementAt(5))){
+            } else if("4".equals(vet1.elementAt(5))){
                 aux.setQIO(4);
-            }else if("5".equals(vet1.elementAt(5))){
+            } else if("5".equals(vet1.elementAt(5))){
                 aux.setQIO(5);
             }
             
