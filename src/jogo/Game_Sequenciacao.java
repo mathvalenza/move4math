@@ -1665,7 +1665,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                 for(int i=0; i<partida.getFilaElementosReferencia().size(); i++) {
                     System.out.println(partida.getFilaElementosReferencia().get(i).getId() + " ");
                 }
-                Imagem elemento = partida.getFilaElementosReferencia().lastElement();
+                Imagem elemento = partida.getFilaElementosReferencia().firstElement();
                 Imagem imgRefTemp = new Imagem(elemento);
                 referencia.setWidth(partida.getNivel().getTIO());
                 referencia.setHeight(partida.getNivel().getTIO());
