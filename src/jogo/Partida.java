@@ -168,19 +168,21 @@ public class Partida implements Cloneable{
         
         if (move4math.Move4Math.indiceJogoAtual == 2) {
             String bufferSequenciacao[] = nivel.getSequenciacaoICC().split(" ");
+            
+            System.out.println("\nBUFFER SEQUENCIACAO");
+            for (int i=0; i<bufferSequenciacao.length; i++) {
+                System.out.println(" " + bufferSequenciacao[i]);
+            }
+            
             for(int i=0;i<imagens.size();i++){
                 for(int j=0;j<imagens.elementAt(i).size();j++){
                    for(int k=0; k<bufferSequenciacao.length; k++){
                        if (Integer.parseInt(bufferSequenciacao[k]) == (imagens.elementAt(i).elementAt(j).getId())){
-                           if (k==0){
-                               try {
-                                   imgRef = imagens.elementAt(i).elementAt(j).clone();
-                                   filaElementos.add(imgRef);
-                               } catch (CloneNotSupportedException ex) {
-                                   Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
-                               }
-                            }else{
-                                filaElementos.add(imagens.elementAt(i).elementAt(j));
+                            try {
+                                imgRef = imagens.elementAt(i).elementAt(j).clone();
+                                filaElementos.add(imgRef);
+                            } catch (CloneNotSupportedException ex) {
+                                Logger.getLogger(Partida.class.getName()).log(Level.SEVERE, null, ex);
                             }
 
                         } 

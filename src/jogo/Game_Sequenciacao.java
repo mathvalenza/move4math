@@ -747,39 +747,36 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                     deslocamento = 25;
                                 }
                                 referencia.setX(referencia.getX() + deslocamento);
-                                referencia2.setX(referencia2.getX() + deslocamento);
+                                referencia2.setX(referencia.getX() + referencia2.getWidth());
 
                                 // mostrando imagens referencia
                                 if(mostrarReferencias && numAcertosNaRodada < partida.getNivel().getQIO()){ //No lugar do '3' seria partida.getNivel().getQIO() ????
                                     //mostrarReferencias é uma variável booleana que é desabilitada quando a função ocultaReferencia é chamada
                                     for (int i = 0;i<partida.getNivel().getQIO();i++){
                                         if (i == 1) {
-//                                            Imagem elemento = partida.getFilaElementosReferencia().lastElement();
-//                                            Imagem imgRefTemp = new Imagem(elemento);
-//                                            referencia2.setWidth(partida.getNivel().getTIO());
-//                                            referencia2.setHeight(partida.getNivel().getTIO());
+                                            Imagem elemento = partida.getFilaElementosReferencia().lastElement();
+                                            Imagem imgRefTemp = new Imagem(elemento);
+                                            referencia2.setWidth(partida.getNivel().getTIO());
+                                            referencia2.setHeight(partida.getNivel().getTIO());
 //
-//                                            switch(Move4Math.indiceJogoAtual){
-//                                                case 2:
-//                                                    referencia2.setX(195);
-//                                                    break;
-//                                                default :
-//                                                    referencia2.setX(280);
-//                                                    break;
-//                                            }
-//
-//                                            referencia2.setY(10);
-//                                            Mat tempRef = new Mat();
-//                                            tempRef = imgRefTemp.getImg();
-//                                            Imgproc.resize(tempRef,tempRef,new Size(partida.getNivel().getTIO(), partida.getNivel().getTIO()));
-//                                            referencia2.setImagem(tempRef);
-//                                            referencia2.setId(imgRefTemp.getId());
+                                            referencia2.setY(10);
+                                            Mat tempRef = imgRefTemp.getImg();
+                                            Imgproc.resize(tempRef,tempRef, new Size(50.0, 50.0));
+                                            referencia2.setImagem(tempRef);
+                                            referencia2.setId(imgRefTemp.getId());
 //                                            
-//                                            descRef = imgRefTemp.getDescricao();
+                                            descRef = imgRefTemp.getDescricao();
 //                                            //coloca as descricoes
-//                                            referencia2.setRefImgStr(imgRefTemp.getDescricao());
-//                                            referencia2.setSom(imgRefTemp.getSom());
-//                                            referencia2.setGrupo(imgRefTemp.getGrupo());
+                                            referencia2.setRefImgStr(imgRefTemp.getDescricao());
+                                            referencia2.setSom(imgRefTemp.getSom());
+                                            referencia2.setGrupo(imgRefTemp.getGrupo());
+                                            
+                                            dst2 = new Mat();
+                                            Mat mescRef = cenario.submat(new Rect(new Point(referencia2.getX(), referencia2.getY()),new Point(referencia2.getX() + referencia2.getWidth(), referencia2.getY() + referencia2.getHeight())));
+                                            
+                                            Core.addWeighted(referencia2.getImagem(),1.0,mescRef , 0.3, 0.0, dst2);
+                                            dst2.copyTo(cenario.colRange(referencia2.getX(),referencia2.getX() + referencia2.getWidth()).rowRange(referencia2.getY(),referencia2.getY() + referencia2.getHeight()));
+
                                             
                                         } else {
                                             dst = new Mat();
@@ -788,7 +785,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
                                             dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
 
-                                            referencia.setX(referencia.getX() + referencia.getWidth());
                                             referencia.setX(referencia.getX() + referencia.getWidth());
 
                                         }
@@ -801,8 +797,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Mat mescRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
                                             Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
                                             dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
-                                            referencia.setX(referencia.getX() + referencia.getWidth());  
-                                            referencia2.setX(referencia2.getX() + referencia2.getWidth()); 
+                                            referencia.setX(referencia.getX() + referencia.getWidth());
                                     }
                                     if (!mostrarEstrelas){ //talvez tirar esse if
                                         for (int i=numAcertosNaRodada; i<partida.getNivel().getQIO(); i++){
@@ -834,10 +829,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
         
                             //Thread.sleep(partida.getNivel().getTEO()*1000);
 
-                            dst2 = new Mat();
-                            Mat mescRef2 = cenario.submat(new Rect(new Point(200, 15),new Point(300, 15)));
-                            //Core.addWeighted(referencia.getImagem(),1.0,mescRef2 , 0.3, 0.0, dst2);
-                            //dst2.copyTo(cenario.colRange(200,255).rowRange(15,70));
 
                             //Só mostra os blobs se já se passou um tempo de referência
                   //          if(Calendar.getInstance().getTimeInMillis()>(gerarRodada.getTimeInMillis()+tempoExposicaoReferencia)){
@@ -1728,17 +1719,41 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                     controle = false;
                     
-                }else{
+                }else {
                     // aqui
-                    if (elementoDaFila == partida.getFilaElementos().size()){
+                    System.out.println("\npartida.getFilaElementos(): ");
+                    for (int j=0; j<partida.getFilaElementos().size(); j++) {
+                        System.out.println("id: " + partida.getFilaElementos().get(j).getId()
+                                + " img str: " + partida.getFilaElementos().get(j).getImgStr()
+                                + " desc: " + partida.getFilaElementos().get(j).getDescricao()
+                                + " desc: " + partida.getFilaElementos().get(j).getImg());
+                    }
+                    
+                    if (elementoDaFila == partida.getFilaElementos().size()) {
                         elementoDaFila = 0;
                     }
-                    Imagem imgTemp = new Imagem(partida.getFilaElementos().elementAt(elementoDaFila));
+                    
+                    Imagem elemento = new Imagem();
+                    
+//                    if (elementoDaFila != 1) {
+//                        elemento = partida.getFilaElementos().elementAt(elementoDaFila);
+//                    } else {
+//                        elemento = partida.getFilaElementos().lastElement();
+//                    }
+                    
+                    elemento = partida.getFilaElementos().elementAt(elementoDaFila);
+                    
+                    Imagem imgTemp = new Imagem(elemento);
+                 // Imagem imgTemp = new Imagem(partida.getFilaElementos().elementAt(1)); ELEMENT AT 1 NÃO FUNCIONA
+                    
+
+
                     elementoDaFila++;
+
                     int posicao = number.nextInt(grade.getRegioes().size());
                     while(posicoesOcupadas.get(posicao)==1)
                         posicao = number.nextInt(grade.getRegioes().size());
-                    
+
                     posicoesOcupadas.set(posicao,1);
 
                     Mat tempRef = new Mat();
@@ -1750,7 +1765,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     grade.getRegioes().elementAt(posicao).setOcupado(true);
                     int numImagens = grade.getNumImagens();
                     grade.setNumImagens(numImagens+1);
-                }    
+                }
+                    
             }
             
             //emite o som de referencia
