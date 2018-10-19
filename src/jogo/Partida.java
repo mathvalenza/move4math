@@ -108,6 +108,26 @@ public class Partida implements Cloneable{
         return imagensCena;
     }
     
+    public String [] imagensDaCenaSequenciacao(int faseAtual, Nivel nivel){
+        int tamanho = nivel.getQIS();
+        
+        String imagensCena[] = new String[tamanho];
+        switch (faseAtual) {
+            case 1:
+                imagensCena = nivel.getSequenciacaoICC().split(" ");
+                break;
+            default:
+                System.out.println("Erro! Fase não existente!");
+        }
+
+        System.out.println("\n\nIMAGENS DA CENA: ");
+        for (int i=0;i<imagensCena.length;i++){
+            System.out.println(imagensCena[i]);
+        }
+        //filaElementosReferencia.add(imagensCena.)
+        return imagensCena;
+    }
+    
     // refazer, criando um vetor de imagens de 4 posições, onde cada posição é a primeira imagem contida em ICC
     public void geraNovaFilaReferencias(String[] imagensCena){
         filaElementosReferencia.clear();
@@ -326,6 +346,7 @@ public class Partida implements Cloneable{
         
         //System.out.println("Entrou no geraFilaReferenciaAleatoria");
         String idsDoICC[] = imagensDaCena(move4math.Move4Math.indiceFaseAtual,nivel);
+        String idsDoICCSequenciacao[] = imagensDaCenaSequenciacao(move4math.Move4Math.indiceFaseAtual,nivel);
         //System.out.println(" id da referencia desejada: " + idsDoICC[0]);
 
         //Tipo de Jogo
@@ -337,16 +358,18 @@ public class Partida implements Cloneable{
         // ICC serão posicionados como objetivo da linha
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
        
-        if (iTipoJogoSelecionado == 0){ //Jogo de Classificação ou Sequenciação
+        if (iTipoJogoSelecionado == 0){ //Jogo de Classificação
             for(int i=0;i<imagens.elementAt(referencia).size();i++){
                 if (Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()){
                     filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
                 }
             }
-        } else if(iTipoJogoSelecionado == 2) {
+        } else if(iTipoJogoSelecionado == 2) { // SEQUENCIAÇÃO
             for(int i=0;i<imagens.elementAt(referencia).size();i++){
-                if (Integer.parseInt(idsDoICC[0]) == imagens.elementAt(referencia).elementAt(i).getId()){
-                    filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
+                for (int j=0; j<2; j++) {
+                    if (Integer.parseInt(idsDoICCSequenciacao[j]) == imagens.elementAt(referencia).elementAt(i).getId()){
+                        filaElementosReferencia.add(imagens.elementAt(referencia).elementAt(i));
+                    }
                 }
             }
             

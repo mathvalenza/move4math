@@ -1661,7 +1661,12 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             }
 
             if(isReferencia){ //seta a referencia que vai aparecer no topo da tela  aqui
-                Imagem imgRefTemp = new Imagem(partida.getFilaElementosReferencia().remove(0));
+                System.out.println("\nFILA ELEMENTOS REFERENCIA EM GAME:\n");
+                for(int i=0; i<partida.getFilaElementosReferencia().size(); i++) {
+                    System.out.println(partida.getFilaElementosReferencia().get(i).getId() + " ");
+                }
+                Imagem elemento = partida.getFilaElementosReferencia().lastElement();
+                Imagem imgRefTemp = new Imagem(elemento);
                 referencia.setWidth(partida.getNivel().getTIO());
                 referencia.setHeight(partida.getNivel().getTIO());
 
@@ -1738,7 +1743,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     Imagem imgRefTemp = null;
                     for(int j=0;j<partida.getFilaElementosReferencia().size();j++){
                         if(partida.getFilaElementosReferencia().elementAt(j).getGrupo()==referencia.getGrupo()){
-                            imgRefTemp = new Imagem(partida.getFilaElementosReferencia().remove(j));
+                            imgRefTemp = new Imagem(partida.getFilaElementosReferencia().get(j));
                             break;
                         }
                     }
