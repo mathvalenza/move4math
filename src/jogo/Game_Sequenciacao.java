@@ -715,12 +715,12 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                     int escolha = number.nextInt(2);
                                     numSimbolosParaGerar = (numSimbolosParaGerar/2);
                                     if(escolha == 0){
-                                        partida.geraFilaAleatoria();
+                                        partida.geraFilaAleatoriaSequenciacao(partida.getNivel().getQIO());
                                         gerarImagens2(gradeEsq, partida, numSimbolosParaGerar, true, true);
                                         gerarImagens2(gradeDir, partida, numSimbolosParaGerar, false,false);
 
                                     }else if(escolha == 1){
-                                        partida.geraFilaAleatoria();
+                                        partida.geraFilaAleatoriaSequenciacao(partida.getNivel().getQIO());
                                         gerarImagens2(gradeDir, partida, numSimbolosParaGerar, true, true);
                                         gerarImagens2(gradeEsq, partida, numSimbolosParaGerar, false, false);
 
@@ -753,8 +753,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 if(mostrarReferencias && numAcertosNaRodada < partida.getNivel().getQIO()){ //No lugar do '3' seria partida.getNivel().getQIO() ????
                                     //mostrarReferencias é uma variável booleana que é desabilitada quando a função ocultaReferencia é chamada
                                     for (int i = 0;i<partida.getNivel().getQIO();i++){
-                                        if (i == 1) {
-                                            Imagem elemento = partida.getFilaElementosReferencia().lastElement();
+                                        if (i != 0) {
+                                            Imagem elemento = partida.getFilaElementosReferencia().get(i);
                                             Imagem imgRefTemp = new Imagem(elemento);
                                             referencia2.setWidth(partida.getNivel().getTIO());
                                             referencia2.setHeight(partida.getNivel().getTIO());
@@ -777,7 +777,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Core.addWeighted(referencia2.getImagem(),1.0,mescRef , 0.3, 0.0, dst2);
                                             dst2.copyTo(cenario.colRange(referencia2.getX(),referencia2.getX() + referencia2.getWidth()).rowRange(referencia2.getY(),referencia2.getY() + referencia2.getHeight()));
 
-                                            
+                                            referencia2.setX(referencia2.getX() + referencia2.getWidth());
                                         } else {
                                             dst = new Mat();
                                             Mat mescRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
@@ -807,14 +807,13 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             Core.addWeighted(roiSombraObjetivo,0.0,sombraObjetivo,1.0,0.0,dst);
                                             dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
                                             referencia.setX(referencia.getX() + referencia.getWidth());
-                                            referencia2.setX(referencia2.getX() + referencia2.getWidth()); 
                                         } 
                                     }
                                 }
 
                                 if (Move4Math.indiceJogoAtual == 0 || Move4Math.indiceJogoAtual == 2){
                                     referencia.setX(195);
-                                    referencia2.setX(195);
+                                    referencia2.setX(195 + referencia.getWidth());
                                 }else{
                                     if (Move4Math.indiceJogoAtual == 1){
                                         referencia.setX(250);
