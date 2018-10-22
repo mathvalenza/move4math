@@ -1470,7 +1470,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     System.out.println("testeSequenciaTriangulos[numAcertosNaRodada]: " + testeSequenciaTriangulos[numAcertosNaRodada]);
                     System.out.println("\n tocada: " + grade.getRegioes().elementAt(i).getImg().getId());
                     //o if abaixo decide se a imagem tocada está certa ou errada
-                    if(grade.getRegioes().elementAt(i).getImg().getId()==testeSequenciaTriangulos[numAcertosNaRodada]){
+                    if(grade.getRegioes().elementAt(i).getImg().getId()==partida.getFilaElementos().get(numAcertosNaRodada).getId()){
 //                    if(grade.getRegioes().elementAt(i).getImg().getId()==referencia.getId()){
                         //Acho que é assim que separa os pontos...
                         tipoColisao = 1;
