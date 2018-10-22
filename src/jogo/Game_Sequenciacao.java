@@ -100,8 +100,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
      
     int tipoFeedback; //0 - Avança linha;1 - Avança nivel; 2 - Permanece nível; 3 - Retrocede nivel;
                       //4 - Avança fase; 5 - Retrocede fase; 6 - Perde vida;
-    Referencia referencia;
-    Referencia referencia2;
+    Referencia referencia, referencia2, referencia3;
     int tempoExposicao;
 
     boolean primeiroToque = true;
@@ -166,6 +165,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     public Game_Sequenciacao(){
         this.referencia = new Referencia();
         this.referencia2 = new Referencia();
+        this.referencia3 = new Referencia();
         initComponents();
                 
         fimDeJogo = false;
@@ -748,6 +748,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 }
                                 referencia.setX(referencia.getX() + deslocamento);
                                 referencia2.setX(referencia.getX() + referencia2.getWidth());
+                                referencia3.setX(referencia3.getX() + deslocamento);
 
                                 // mostrando imagens referencia
                                 if(mostrarReferencias && numAcertosNaRodada < partida.getNivel().getQIO()){ //No lugar do '3' seria partida.getNivel().getQIO() ????
@@ -793,26 +794,44 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                                 if (jogando){ // jogando é um bool que indica que o usuário está tocando os objetos e por isso devem aparecer os acertos no lugar das referências
                                     for (int i = 0;i<numAcertosNaRodada;i++){
-                                            dst = new Mat();
-                                            Mat mescRef = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
-                                            Core.addWeighted(referencia.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
-                                            dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
-                                            referencia.setX(referencia.getX() + referencia.getWidth());
+                                        Imagem elemento = partida.getFilaElementosReferencia().get(i);
+                                        Imagem imgRefTemp = new Imagem(elemento);
+                                        referencia3.setWidth(partida.getNivel().getTIO());
+                                        referencia3.setHeight(partida.getNivel().getTIO());
+//
+                                        referencia3.setY(10);
+                                        Mat tempRef = imgRefTemp.getImg();
+                                        Imgproc.resize(tempRef,tempRef, new Size(50.0, 50.0));
+                                        referencia3.setImagem(tempRef);
+                                        referencia3.setId(imgRefTemp.getId());
+//                                            
+                                        descRef = imgRefTemp.getDescricao();
+//                                            //coloca as descricoes
+                                        referencia3.setRefImgStr(imgRefTemp.getDescricao());
+                                        referencia3.setSom(imgRefTemp.getSom());
+                                        referencia3.setGrupo(imgRefTemp.getGrupo());
+
+                                        dst = new Mat();
+                                        Mat mescRef = cenario.submat(new Rect(new Point(referencia3.getX(), referencia3.getY()),new Point(referencia3.getX() + referencia3.getWidth(), referencia3.getY() + referencia3.getHeight())));
+                                        Core.addWeighted(referencia3.getImagem(),1.0,mescRef , 0.3, 0.0, dst);
+                                        dst.copyTo(cenario.colRange(referencia3.getX(),referencia3.getX() + referencia3.getWidth()).rowRange(referencia3.getY(),referencia3.getY() + referencia3.getHeight()));
+                                        referencia3.setX(referencia3.getX() + referencia3.getWidth());
                                     }
-                                    if (!mostrarEstrelas){ //talvez tirar esse if
-                                        for (int i=numAcertosNaRodada; i<partida.getNivel().getQIO(); i++){
-                                            Imgproc.resize(sombraObjetivo, sombraObjetivo, new Size(50.0, 50.0));
-                                            dst = new Mat();
-                                            Mat roiSombraObjetivo = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
-                                            Core.addWeighted(roiSombraObjetivo,0.0,sombraObjetivo,1.0,0.0,dst);
-                                            dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
-                                            referencia.setX(referencia.getX() + referencia.getWidth());
-                                        } 
-                                    }
+//                                    if (!mostrarEstrelas){ //talvez tirar esse if
+//                                        for (int i=numAcertosNaRodada; i<partida.getNivel().getQIO(); i++){
+//                                            Imgproc.resize(sombraObjetivo, sombraObjetivo, new Size(50.0, 50.0));
+//                                            dst = new Mat();
+//                                            Mat roiSombraObjetivo = cenario.submat(new Rect(new Point(referencia.getX(), referencia.getY()),new Point(referencia.getX() + referencia.getWidth(), referencia.getY() + referencia.getHeight())));
+//                                            Core.addWeighted(roiSombraObjetivo,0.0,sombraObjetivo,1.0,0.0,dst);
+//                                            dst.copyTo(cenario.colRange(referencia.getX(),referencia.getX() + referencia.getWidth()).rowRange(referencia.getY(),referencia.getY() + referencia.getHeight()));
+//                                            referencia.setX(referencia.getX() + referencia.getWidth());
+//                                        } 
+//                                    }
                                 }
 
                                 if (Move4Math.indiceJogoAtual == 0 || Move4Math.indiceJogoAtual == 2){
                                     referencia.setX(195);
+                                    referencia3.setX(195);
                                     referencia2.setX(195 + referencia.getWidth());
                                 }else{
                                     if (Move4Math.indiceJogoAtual == 1){
@@ -1648,6 +1667,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     case 2:
 //                        referencia.setX(250);
                         referencia.setX(195);
+                        referencia3.setX(195);
                         break;
                     default :
                         referencia.setX(280);
