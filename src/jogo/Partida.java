@@ -190,10 +190,10 @@ public class Partida implements Cloneable{
                 }
             }
             
-            System.out.println("\fila elementossssssssss");
-            for (int i=0; i<filaElementos.size(); i++) {
-                System.out.println(" " + filaElementos.get(i).getId());
-            }
+//            System.out.println("\fila elementossssssssss");
+//            for (int i=0; i<filaElementos.size(); i++) {
+//                System.out.println(" " + filaElementos.get(i).getId());
+//            }
         } else {
         
             switch (move4math.Move4Math.indiceFaseAtual) {

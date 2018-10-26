@@ -872,6 +872,25 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 ocultaReferencia(partida.getNivel());
 
                                 Imgproc.line(cenario, new Point(221, 68), new Point(225+(diferenca/te)*200, 68), new Scalar(0, 0, 255, 255),5);
+                                
+                                System.out.println("\n (diferenca/te)*200: " + (diferenca/te)*200);
+                                
+                                if ((diferenca/te)*200 < partida.getNivel().getTEO()*100/2) {
+                                    System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
+//                                    Imgproc.line(cenario, new Point(221, 100), new Point(225+(diferenca/te)*200, 100), new Scalar(0, 255, 0, 255),5);
+//                                    File yourFile = new File("Resources/sounds/acertou3.wav");
+//                                    AudioInputStream stream;
+//                                    AudioFormat format;
+//                                    DataLine.Info info;
+//                                    Clip clip;
+//
+//                                    stream = AudioSystem.getAudioInputStream(yourFile);
+//                                    format = stream.getFormat();
+//                                    info = new DataLine.Info(Clip.class, format);
+//                                    clip = (Clip) AudioSystem.getLine(info);
+//                                    clip.open(stream);
+//                                    clip.start();
+                                }
                                 //fim da barrinha de tempo
                                 // mostra rodada (blobs na tela)
                                 switch (partida.getNivel().getLAD()) {
@@ -1654,10 +1673,10 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             }
 
             if(isReferencia){ //seta a referencia que vai aparecer no topo da tela
-                System.out.println("\nFILA ELEMENTOS REFERENCIA EM GAME:\n");
-                for(int i=0; i<partida.getFilaElementosReferencia().size(); i++) {
-                    System.out.println(partida.getFilaElementosReferencia().get(i).getId() + " ");
-                }
+//                System.out.println("\nFILA ELEMENTOS REFERENCIA EM GAME:\n");
+//                for(int i=0; i<partida.getFilaElementosReferencia().size(); i++) {
+//                    System.out.println(partida.getFilaElementosReferencia().get(i).getId() + " ");
+//                }
                 Imagem elemento = partida.getFilaElementosReferencia().firstElement();
                 Imagem imgRefTemp = new Imagem(elemento);
                 referencia.setWidth(partida.getNivel().getTIO());
@@ -1740,13 +1759,13 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                     
                 }else {
                     // aqui
-                    System.out.println("\npartida.getFilaElementos(): ");
-                    for (int j=0; j<partida.getFilaElementos().size(); j++) {
-                        System.out.println("id: " + partida.getFilaElementos().get(j).getId()
-                                + " img str: " + partida.getFilaElementos().get(j).getImgStr()
-                                + " desc: " + partida.getFilaElementos().get(j).getDescricao()
-                                + " desc: " + partida.getFilaElementos().get(j).getImg());
-                    }
+//                    System.out.println("\npartida.getFilaElementos(): ");
+//                    for (int j=0; j<partida.getFilaElementos().size(); j++) {
+//                        System.out.println("id: " + partida.getFilaElementos().get(j).getId()
+//                                + " img str: " + partida.getFilaElementos().get(j).getImgStr()
+//                                + " desc: " + partida.getFilaElementos().get(j).getDescricao()
+//                                + " desc: " + partida.getFilaElementos().get(j).getImg());
+//                    }
                     
                     if (elementoDaFila == partida.getFilaElementos().size()) {
                         elementoDaFila = 0;
