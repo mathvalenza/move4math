@@ -1485,7 +1485,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                     somaTempoToque += tempoToque;
 
-                    System.out.println("testeSequenciaTriangulos[numAcertosNaRodada]: " + testeSequenciaTriangulos[numAcertosNaRodada]);
+                    System.out.println("\npartida.getFilaElementos().get(numAcertosNaRodada).getId(): " + partida.getFilaElementos().get(numAcertosNaRodada).getId());
                     System.out.println("\n tocada: " + grade.getRegioes().elementAt(i).getImg().getId());
                     //o if abaixo decide se a imagem tocada está certa ou errada
                     if(grade.getRegioes().elementAt(i).getImg().getId()==partida.getFilaElementos().get(numAcertosNaRodada).getId()){
@@ -1883,6 +1883,9 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                     break;
                 case 1:
+                    if (tamanhoEFeedback < 350.0){
+                        tamanhoEFeedback += 25;
+                    }
                     //Imagem para avanço de nível
                     Mat avancaNivel = Imgcodecs.imread("Resources/images/EAN.png",1);
                     if (mediaEstrelasNivel == 1){
