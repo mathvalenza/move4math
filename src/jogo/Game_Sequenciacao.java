@@ -352,13 +352,22 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
             //publico.get
             int CIT = publico.getFases().elementAt(indexFase-1).getCIT();//gambiarra
 
-            for(int i=0;i<conjuntosDeTrabalho.size();i++){
-                if(conjuntosDeTrabalho.elementAt(i).getId()==CIT){
-                    partida.setConjuntoImagem(conjuntosDeTrabalho.elementAt(i));
-                    //partida.getConjuntoImagem().setImagens(conjuntosDeTrabalho.elementAt(i).getImagens());
-                    break;
+            System.out.println("\n\n PARTIDA.GETnIVEL.GETNUMERO " + partida.getNivel().getNumero() + "\n");
+            
+            if (partida.getNivel().getNumero() <= 6) {
+                for(int i=0;i<conjuntosDeTrabalho.size();i++){
+                    if(conjuntosDeTrabalho.elementAt(i).getId()==CIT){
+                        partida.setConjuntoImagem(conjuntosDeTrabalho.elementAt(i));
+                        //partida.getConjuntoImagem().setImagens(conjuntosDeTrabalho.elementAt(i).getImagens());
+                        break;
+                    }
                 }
+            } else if (partida.getNivel().getNumero() <= 8) {
+                partida.setConjuntoImagem(conjuntosDeTrabalho.elementAt(1));
+            } else {
+                partida.setConjuntoImagem(conjuntosDeTrabalho.elementAt(0));
             }
+            
             //imagens do cenario
 
             Mat degrade = Imgcodecs.imread("Resources/images/TES-degrade.png", 1);
@@ -701,6 +710,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                             numSimbolosParaGerar = partida.getNivel().getQIS();
                             se vai gerar na esquerda, direita ou ambos
                             //*/
+                            reproduzirAudioRelogio = true;
                             switch (partida.getNivel().getLAD()) {
                                 case 1:
                                     // 1=esquerda, 2=direita, 3=ambos
@@ -879,12 +889,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 System.out.println("\n tempoFaltante: " + tempoFaltante);
                                 
                                 if (reproduzirAudio) {
-                                    if (tempoFaltante < 2000) {
-                                        if (reproduzirAudioRelogio) {
-                                            System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
-                                            reproduzirAudioRelogio = false;
-
-                                            File yourFile = new File("Resources/sounds/clocktick.wav");
+                                    if (reproduzirAudioRelogio) {
+                                        File yourFile = new File("Resources/sounds/clocktick.wav");
                                             AudioInputStream stream;
                                             AudioFormat format;
                                             DataLine.Info info;
@@ -895,7 +901,14 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             info = new DataLine.Info(Clip.class, format);
                                             clip = (Clip) AudioSystem.getLine(info);
                                             clip.open(stream);
+                                        if (tempoFaltante < 2000) {
+                                            System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
+                                            reproduzirAudioRelogio = false;
+
+                                            
                                             clip.start();
+                                        } else {
+                                            clip.stop();
                                         }
                                     }
                                 }
@@ -957,8 +970,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                         minutosAux = minutos;
                                         iPontosMotor = 0;
                                         iPontosCognitivo = 0;
-                                        
-                                        reproduzirAudioRelogio = true;
                                         switch (tipoColisao) {
                                             case 1:
                                                 //acertou
@@ -1003,8 +1014,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                         
                                         jogando = false;
                                         houveColisao=0;
-                                        
-                                        reproduzirAudioRelogio = true;
                                         
                                         gradeEsq.setNumImagens(0);
                                         gradeDir.setNumImagens(0);
