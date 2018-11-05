@@ -97,6 +97,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
     boolean feedback2 = false;
     boolean feedback2Aux = false;
     boolean reproduzirAudio = false;
+    boolean reproduzirAudioRelogio = true;
      
     int tipoFeedback; //0 - Avança linha;1 - Avança nivel; 2 - Permanece nível; 3 - Retrocede nivel;
                       //4 - Avança fase; 5 - Retrocede fase; 6 - Perde vida;
@@ -135,6 +136,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
         feedback2 = false;
         feedback2Aux = false;
         reproduzirAudio = true;
+        reproduzirAudioRelogio = true;
         primeiroToque = true;
         mostrarReferencias = true;
         mostrarEstrelas = false;
@@ -873,24 +875,31 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
                                 Imgproc.line(cenario, new Point(221, 68), new Point(225+(diferenca/te)*200, 68), new Scalar(0, 0, 255, 255),5);
                                 
-                                System.out.println("\n (diferenca/te)*200: " + (diferenca/te)*200);
+                                long tempoFaltante = (tempoExposicao - (Calendar.getInstance().getTimeInMillis() - mostrarBlobs.getTimeInMillis()));
+                                System.out.println("\n tempoFaltante: " + tempoFaltante);
                                 
-                                if ((diferenca/te)*200 < partida.getNivel().getTEO()*100/2) {
-                                    System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
-//                                    Imgproc.line(cenario, new Point(221, 100), new Point(225+(diferenca/te)*200, 100), new Scalar(0, 255, 0, 255),5);
-//                                    File yourFile = new File("Resources/sounds/acertou3.wav");
-//                                    AudioInputStream stream;
-//                                    AudioFormat format;
-//                                    DataLine.Info info;
-//                                    Clip clip;
-//
-//                                    stream = AudioSystem.getAudioInputStream(yourFile);
-//                                    format = stream.getFormat();
-//                                    info = new DataLine.Info(Clip.class, format);
-//                                    clip = (Clip) AudioSystem.getLine(info);
-//                                    clip.open(stream);
-//                                    clip.start();
+                                if (reproduzirAudio) {
+                                    if (tempoFaltante < 2000) {
+                                        if (reproduzirAudioRelogio) {
+                                            System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
+                                            reproduzirAudioRelogio = false;
+
+                                            File yourFile = new File("Resources/sounds/clocktick.wav");
+                                            AudioInputStream stream;
+                                            AudioFormat format;
+                                            DataLine.Info info;
+                                            Clip clip;
+
+                                            stream = AudioSystem.getAudioInputStream(yourFile);
+                                            format = stream.getFormat();
+                                            info = new DataLine.Info(Clip.class, format);
+                                            clip = (Clip) AudioSystem.getLine(info);
+                                            clip.open(stream);
+                                            clip.start();
+                                        }
+                                    }
                                 }
+                                
                                 //fim da barrinha de tempo
                                 // mostra rodada (blobs na tela)
                                 switch (partida.getNivel().getLAD()) {
@@ -948,6 +957,8 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                         minutosAux = minutos;
                                         iPontosMotor = 0;
                                         iPontosCognitivo = 0;
+                                        
+                                        reproduzirAudioRelogio = true;
                                         switch (tipoColisao) {
                                             case 1:
                                                 //acertou
@@ -992,6 +1003,9 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                         
                                         jogando = false;
                                         houveColisao=0;
+                                        
+                                        reproduzirAudioRelogio = true;
+                                        
                                         gradeEsq.setNumImagens(0);
                                         gradeDir.setNumImagens(0);
                                         gerouBlobs=false;
