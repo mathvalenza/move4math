@@ -109,6 +109,10 @@ public class Partida implements Cloneable{
     }
     
     public String [] imagensDaCenaSequenciacao(int faseAtual, Nivel nivel){
+        if ("Masculino".equals(player.getSexo())) {
+            estrelaNegra = Imgcodecs.imread("Resources/images/bola_sombra.png",1);
+        }
+        
         int tamanho = nivel.getQIS();
         
         String imagensCena[] = new String[tamanho];

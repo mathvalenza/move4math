@@ -351,8 +351,15 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
 
             //publico.get
             int CIT = publico.getFases().elementAt(indexFase-1).getCIT();//gambiarra
-
-            System.out.println("\n\n PARTIDA.GETnIVEL.GETNUMERO " + partida.getNivel().getNumero() + "\n");
+            
+            System.out.println("\n opaaa " + player.getSexo());
+            
+            if ("Masculino".equals(player.getSexo())) {
+                System.out.println("\n\nMasculino\n\n");
+                estrela = Imgcodecs.imread("Resources/images/bola.png",1);
+            } else {
+                estrela = Imgcodecs.imread("Resources/images/star_.png",1);
+            }
             
             if (partida.getNivel().getNumero() <= 6) {
                 for(int i=0;i<conjuntosDeTrabalho.size();i++){
@@ -886,7 +893,6 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                 Imgproc.line(cenario, new Point(221, 68), new Point(225+(diferenca/te)*200, 68), new Scalar(0, 0, 255, 255),5);
                                 
                                 long tempoFaltante = (tempoExposicao - (Calendar.getInstance().getTimeInMillis() - mostrarBlobs.getTimeInMillis()));
-                                System.out.println("\n tempoFaltante: " + tempoFaltante);
                                 
                                 if (reproduzirAudio) {
                                     if (reproduzirAudioRelogio) {
@@ -902,10 +908,7 @@ public class Game_Sequenciacao extends javax.swing.JFrame {
                                             clip = (Clip) AudioSystem.getLine(info);
                                             clip.open(stream);
                                         if (tempoFaltante < 2000) {
-                                            System.out.println("\nFALTA SÓ METADE DOS " + partida.getNivel().getTEO() + " SEGUNDOS");
                                             reproduzirAudioRelogio = false;
-
-                                            
                                             clip.start();
                                         } else {
                                             clip.stop();
